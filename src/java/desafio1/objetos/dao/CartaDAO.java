@@ -28,10 +28,10 @@ public class CartaDAO implements CrudDAO<Carta>{
                 throw new ErroSist("Preencha todos os campos");
             }
             if(carta.getId() == null){
-                ps = conexao.prepareStatement("INSERT INTO `sistema-cartas` (`titulo`,`colecao`,`cor`,`dataCompra`,`precoCompra`,`quantidade`,`tipoCarta`) VALUES (?,?,?,?,?,?,?)");
+                ps = conexao.prepareStatement("INSERT INTO `carta` (`titulo`,`colecao`,`cor`,`dataCompra`,`precoCompra`,`quantidade`,`tipoCarta`) VALUES (?,?,?,?,?,?,?)");
             }
             else{
-                ps = conexao.prepareStatement("UPDATE `sistema-cartas` SET `titulo` = ?, `colecao` = ?, `cor` = ?, `dataCompra` = ?, `precoCompra` = ?, `quantidade` = ?, `tipoCarta` = ? WHERE `idCarta` = ?");
+                ps = conexao.prepareStatement("UPDATE `carta` SET `titulo` = ?, `colecao` = ?, `cor` = ?, `dataCompra` = ?, `precoCompra` = ?, `quantidade` = ?, `tipoCarta` = ? WHERE `idCarta` = ?");
                 ps.setInt(8, carta.getId());
             }
             ps.setString(1, carta.getTitulo());
@@ -52,7 +52,7 @@ public class CartaDAO implements CrudDAO<Carta>{
     public List<Carta> buscar() throws ErroSist{
         try {
             Connection conexao = FabricaConexao.getConexao();
-            PreparedStatement ps = conexao.prepareStatement("SELECT * FROM `sistema-cartas`");
+            PreparedStatement ps = conexao.prepareStatement("SELECT * FROM `carta`");
             ResultSet resultSet = ps.executeQuery();
             List<Carta> cartas =  new ArrayList<>();
             while(resultSet.next()){
@@ -78,7 +78,7 @@ public class CartaDAO implements CrudDAO<Carta>{
     public void deletar(Carta carta) throws ErroSist{
         try {
             Connection conexao = FabricaConexao.getConexao();           
-            PreparedStatement ps = conexao.prepareStatement("DELETE FROM `sistema-cartas` WHERE `idCarta` = ?");
+            PreparedStatement ps = conexao.prepareStatement("DELETE FROM `carta` WHERE `idCarta` = ?");
             ps.setInt(1,carta.getId());
             ps.execute();
         } catch (SQLException ex) {
