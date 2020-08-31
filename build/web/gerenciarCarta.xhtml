@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="template.xhtml"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+   <h:form>
+       <p:messages autoUpdate="true" showDetail="true"></p:messages>
+        <p:fieldset legend="Cartas" style="margin-top:20px">
+        <p:toolbar>
+            <p:toolbarGroup>
+                <p:commandButton value="Novo" action="#{cartaBean.novo()}" update="@form"></p:commandButton>
+                <p:commandButton value="Salvar" style="margin-left:30px" action="#{cartaBean.salvar()}" disabled="#{cartaBean.busca == true}" update="@form"></p:commandButton>
+                <p:commandButton value="Buscar" style="margin-left:30px" action="#{cartaBean.buscar()}" update="@form"></p:commandButton>
+            </p:toolbarGroup>
+        </p:toolbar>
+            <p:panelGrid columns="4" style="margin-top:20px" rendered="#{cartaBean.busca == false}">
+                <h:outputLabel value="Titulo"></h:outputLabel>
+                <p:inputText value="#{cartaBean.entidade.titulo}"></p:inputText>
+
+                <h:outputLabel value="Colecao"></h:outputLabel>
+                <p:inputText value="#{cartaBean.entidade.colecao}"></p:inputText>
+
+                <h:outputLabel value="Cor"></h:outputLabel>
+                <p:inputText value="#{cartaBean.entidade.cor}"></p:inputText>
+
+                <h:outputLabel value="Data de Compra"></h:outputLabel>
+                <p:calendar value="#{cartaBean.entidade.dataCompra}" ></p:calendar>
+                
+                <h:outputLabel value="Preço de Compra"></h:outputLabel>
+                <p:inputText value="#{cartaBean.entidade.precoCompra}"></p:inputText>
+                
+                <h:outputLabel value="Quantidade"></h:outputLabel>
+                <p:inputText value="#{cartaBean.entidade.quantidade}"></p:inputText>
+                
+                <h:outputLabel value="Tipo de Carta"></h:outputLabel>
+                <p:inputText value="#{cartaBean.entidade.tipoCarta}"></p:inputText>
+            </p:panelGrid>
+            <p:dataTable value="#{cartaBean.entidades}" var="carta" style="margin-top:20px" rendered="#{cartaBean.busca == true}">
+                <p:column>
+                    <p:commandButton value="Editar" action="#{cartaBean.editar(carta)}" update="@form"></p:commandButton>
+                </p:column>
+                <p:column headerText="Titulo" sortBy="#{carta.titulo}">
+                    <h:outputText value="#{carta.titulo}"></h:outputText>
+                </p:column>
+                <p:column headerText="Coleção" sortBy="#{carta.colecao}">
+                    <h:outputText value="#{carta.colecao}"></h:outputText>
+                </p:column>
+                <p:column headerText="Cor" sortBy="#{carta.cor}">
+                    <h:outputText value="#{carta.cor}"></h:outputText>
+                </p:column>
+                <p:column headerText="Data de Compra" sortBy="#{carta.dataCompra}">
+                    <h:outputText value="#{carta.dataCompra}">
+                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="Preço de Compra" sortBy="#{carta.precoCompra}">
+                    <h:outputText value="#{carta.precoCompra}"></h:outputText>
+                </p:column>
+                <p:column headerText="Quantidade" sortBy="#{carta.quantidade}">
+                    <h:outputText value="#{carta.quantidade}"></h:outputText>
+                </p:column>
+                <p:column headerText="Tipo de Carta" sortBy="#{carta.tipoCarta}">
+                    <h:outputText value="#{carta.tipoCarta}"></h:outputText>
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Deletar" action="#{cartaBean.deletar(carta)}" update="@form"></p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </p:fieldset>
+    </h:form>
+</ui:decorate>
+
