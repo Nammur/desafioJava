@@ -12,9 +12,9 @@ import java.sql.SQLException;
 public class FabricaConexao {
     
     private static Connection conexao;
-    private static final String URL_CONEXAO = "jdbc:mysql://localhost/mydb";
+    private static final String URL_CONEXAO = "jdbc:mysql://localhost/sistema-cartas";
     private static final String USUARIO = "root";
-    private static final String SENHA = "";
+    private static final String SENHA = "senha";
 
     public static Connection getConexao() throws ErroSist {
         if(conexao == null){
